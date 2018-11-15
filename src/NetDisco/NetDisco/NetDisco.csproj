@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>NetDisco.snk</AssemblyOriginatorKeyFile>
+    <PackageId>NetDisco</PackageId>
+    <Authors>Troy Palacino</Authors>
+    <Product>Network Discovery</Product>
+    <!-- HACK: Setting the title this way is required because the tooling doesn't properly support editing the title in the UI -->
+    <Title>$(Product)</Title>
+    <Description>A .Net Standard library for creating auto-discoverable servers and clients.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/tpalacino/NetDisco/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>.Net Standard Auto Discover AutoDiscover</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Code\Troy's AutoDiscovery\NetDisco\NetDisco.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>

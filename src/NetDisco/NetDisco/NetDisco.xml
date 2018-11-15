@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetDisco</name>
+    </assembly>
+    <members>
+        <member name="T:NetDisco.AutoDiscoverableClient`2">
+            <summary>Provides derived classes with a client to an auto-discoverable generic server.</summary>
+            <typeparam name="TRequest">The type of request object.</typeparam>
+            <typeparam name="TResponse">The type of response object.</typeparam>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient`2.#ctor">
+            <summary>Creates a new instance of <see cref="T:NetDisco.AutoDiscoverableClient`2"/> with the default timeout of 1 minute.</summary>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient`2.#ctor(System.TimeSpan)">
+            <summary>Creates a new instance of <see cref="T:NetDisco.AutoDiscoverableClient`2"/> with the specified timeout.</summary>
+            <param name="timeout">The amount of time to wait for server discovery before failing a request.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient`2.HandleError(`0,System.Exception)">
+            <summary>Called when an error occurrs processing a request.</summary>
+            <param name="request">The request that caused the error.</param>
+            <param name="error">The error that occurred.</param>
+            <returns>A <see cref="!:TResponse"/> instance based on the request and error.</returns>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient`2.Send(`0)">
+            <summary>Sends the specified request to the server.</summary>
+            <param name="request">The request to send.</param>
+            <returns>The response from the server, the output from the HandleError method, or null.</returns>
+        </member>
+        <member name="T:NetDisco.AutoDiscoverableClient">
+            <summary>Provides derived classes with a client to an auto-discoverable server.</summary>
+        </member>
+        <member name="F:NetDisco.AutoDiscoverableClient.mServerDiscovered">
+            <summary>Indicates if the server has been discovered.</summary>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.#ctor">
+            <summary>Creates a new instance of <see cref="T:NetDisco.AutoDiscoverableClient"/> with the default timeout of 1 minute.</summary>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.#ctor(System.TimeSpan)">
+            <summary>Creates a new instance of <see cref="T:NetDisco.AutoDiscoverableClient"/> with the specified timeout.</summary>
+            <param name="timeout">The amount of time to wait for server discovery before failing a request.</param>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableClient.Name">
+            <summary>The name of the servers to look for.</summary>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableClient.Server">
+            <summary>The auto-discovered server information.</summary>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableClient.Timeout">
+            <summary>The amount of time to wait for server discovery before failing a request.</summary>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.OnServerDiscovered(NetDisco.ServerInfo)">
+            <summary>Called when a server has been discovered.</summary>
+            <param name="server">The information about the discovered server.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.Send(System.Byte[])">
+            <summary>Sends the specified data to the discovered server.</summary>
+            <param name="data">The data to send to the server.</param>
+            <returns>A <see cref="!:byte[]"/> with the response from the server.</returns>
+            <exception cref="T:System.TimeoutException">Throw if no server is found within the current timeout.</exception>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.StartUserComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the client's connection to a user server.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.StartAutoComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the client's search for an auto-discoverable server.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableClient.ToString">
+            <summary>Gets the string representation of the client.</summary>
+            <returns>A <see cref="T:System.String"/> with the name, and when available the IP address and port of the server.</returns>
+        </member>
+        <member name="T:NetDisco.AutoDiscoverableServer`2">
+            <summary>Provides derived classes with an auto-discoverable generic server.</summary>
+            <typeparam name="TRequest">The type of request object.</typeparam>
+            <typeparam name="TResponse">The type of response object.</typeparam>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer`2.HandleError(`0,System.Exception)">
+            <summary>Called when an error occurrs processing the request.</summary>
+            <param name="request">The request that caused the error.</param>
+            <param name="error">The error that occurred.</param>
+            <returns>A <see cref="!:TResponse"/> instance based on the request and error.</returns>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer`2.ProcessRequest(`0)">
+            <summary>Called to process a request.</summary>
+            <param name="request">The request to process.</param>
+            <returns>A <see cref="!:TResponse"/> instance.</returns>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer`2.ProcessRequest(System.Byte[])">
+            <summary>Processes the request.</summary>
+            <param name="data">The raw data of the request.</param>
+            <returns>A <see cref="!:byte[]"/> with the raw data of the response.</returns>
+        </member>
+        <member name="T:NetDisco.AutoDiscoverableServer">
+            <summary>Provides derived classes with an auto-discoverable server.</summary>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableServer.Name">
+            <summary>The name of the server.</summary>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableServer.Address">
+            <summary>The IP address that the server will use to listen for requests.</summary>
+        </member>
+        <member name="P:NetDisco.AutoDiscoverableServer.Port">
+            <summary>The port that the server will use to listen for requests.</summary>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer.HandleError(System.Exception)">
+            <summary>Called when an error occurs processing a request that is not an auto discover request.</summary>
+            <param name="error">The error.</param>
+            <returns>The data to send back to the remote endpoint.</returns>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer.ProcessRequest(System.Byte[])">
+            <summary>Called when a request is received that is not an auto discover request.</summary>
+            <param name="data">The data received from the remote endpoint.</param>
+            <returns>The data to send back to the remote endpoint.</returns>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer.StartAutoComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the auto-discoverable server.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer.StartUserComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the user defined server.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.AutoDiscoverableServer.ToString">
+            <summary>Gets the string representation of the server.</summary>
+            <returns>A <see cref="T:System.String"/> with the name, IP address, and port of the server.</returns>
+        </member>
+        <member name="T:NetDisco.BaseDiscoverableComponent">
+            <summary>Provides derived classes with common auto-discoverable functionality.</summary>
+        </member>
+        <member name="F:NetDisco.BaseDiscoverableComponent.mUserWorker">
+            <summary>The background worker for the user component.</summary>
+        </member>
+        <member name="F:NetDisco.BaseDiscoverableComponent.mAutoWorker">
+            <summary>The background worker for the auto-discoverable component.</summary>
+        </member>
+        <member name="F:NetDisco.BaseDiscoverableComponent.mIsStopping">
+            <summary>Indicates if the component is stopping.</summary>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.#ctor">
+            <summary>Creates a new instance of <see cref="T:NetDisco.BaseDiscoverableComponent"/>.</summary>
+        </member>
+        <member name="P:NetDisco.BaseDiscoverableComponent.AutoDiscoverPort">
+            <summary>The port where the server will listen for auto discovery requests. Default value is 18500.</summary>
+        </member>
+        <member name="P:NetDisco.BaseDiscoverableComponent.AutoDiscoverData">
+            <summary>The data that will match the data sent in auto discovery requests.</summary>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.Dispose">
+            <summary>Disposes the component.</summary>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.Start">
+            <summary>Starts the component.</summary>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.StartUserComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the user component.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.StartAutoComponent(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>Starts the auto-discoverable component.</summary>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The arguments of the event.</param>
+        </member>
+        <member name="M:NetDisco.BaseDiscoverableComponent.Stop">
+            <summary>Stops the server.</summary>
+        </member>
+        <member name="T:NetDisco.Constants">
+            <summary>Defines constant values used by this assembly.</summary>
+        </member>
+        <member name="F:NetDisco.Constants.DefaultAutoDiscoverPort">
+            <summary>The literal value 18500.</summary>
+        </member>
+        <member name="F:NetDisco.Constants.DefaultAutoDiscoverString">
+            <summary>The literal value "ADR".</summary>
+        </member>
+        <member name="F:NetDisco.Constants.DefaultAutoDiscoverData">
+            <summary>The UTF encoding of the DefaultAutoDiscoverString.</summary>
+        </member>
+        <member name="T:NetDisco.LogLevel">
+            <summary>The possible log levels.</summary>
+        </member>
+        <member name="F:NetDisco.LogLevel.Debug">
+            <summary>The Debug log level.</summary>
+        </member>
+        <member name="F:NetDisco.LogLevel.Info">
+            <summary>The Info log level.</summary>
+        </member>
+        <member name="F:NetDisco.LogLevel.Error">
+            <summary>The Error log level.</summary>
+        </member>
+        <member name="F:NetDisco.LogLevel.Warn">
+            <summary>The Warn log level.</summary>
+        </member>
+        <member name="F:NetDisco.LogLevel.Fatal">
+            <summary>The Fatal log level.</summary>
+        </member>
+        <member name="T:NetDisco.Extensions">
+            <summary>Defines extension methods used by this assembly.</summary>
+        </member>
+        <member name="M:NetDisco.Extensions.ToObject``1(System.Byte[])">
+            <summary>Deserializes the specified data to an object of the specified type.</summary>
+            <typeparam name="T">The type of object to create.</typeparam>
+            <param name="data">The binary data with the JSON content to deserialize.</param>
+            <returns>The deserialized object or the system defined default value for the specified type.</returns>
+        </member>
+        <member name="M:NetDisco.Extensions.ToObject``1(System.Byte[],``0)">
+            <summary>Converts the specified data to a string and deserializes it to an object of the specified type.</summary>
+            <typeparam name="T">The type of object to deserialize.</typeparam>
+            <param name="data">The binary data with the JSON content to deserialize.</param>
+            <param name="defaultValue">The value to return if there is no data or an error occurs.</param>
+            <returns>The deserialized object or the specified default value.</returns>
+        </member>
+        <member name="M:NetDisco.Extensions.ToByteArray``1(``0)">
+            <summary>Serializes the specified object to JSON and converts it to binary.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="obj">The object to serialize and convert to binary.</param>
+            <returns>The binary representation of the JSON conversion of the specified object or an empty byte array.</returns>
+        </member>
+        <member name="M:NetDisco.Extensions.ToByteArray``1(``0,System.Byte[])">
+            <summary>Serializes the specified object to JSON and converts it to binary.</summary>
+            <typeparam name="T">The type of object to serialize.</typeparam>
+            <param name="obj">The object to serialize and convert to binary.</param>
+            <param name="defaultValue">The value to return if there is no object or an error occurs.</param>
+            <returns>The binary representation of the JSON conversion of the specified object or the specified default value.</returns>
+        </member>
+        <member name="M:NetDisco.Extensions.SafeSend(System.Net.Sockets.UdpClient,System.Byte[],System.Net.IPEndPoint)">
+            <summary>Attempts to use the specified client to send the specified data to the specified endpoint.</summary>
+            <param name="client">The client to use.</param>
+            <param name="data">The data to send.</param>
+            <param name="endpoint">The endpoint to send the data to.</param>
+            <returns>An <see cref="T:System.Int32"/> with the number of bytes sent.</returns>
+        </member>
+        <member name="M:NetDisco.Extensions.SafeReceive(System.Net.Sockets.UdpClient,System.Net.IPEndPoint@)">
+            <summary>Attempts to use the specified client to receive data from the specified endpoint.</summary>
+            <param name="client">The client to use.</param>
+            <param name="endpoint">The endpoint to receive data from.</param>
+            <returns>A <see cref="!:byte[]"/> with the received data or an empty array.</returns>
+        </member>
+        <member name="T:NetDisco.Logger">
+            <summary>Helper to simplify some log4net logic.</summary>
+        </member>
+        <member name="M:NetDisco.Logger.Write(NetDisco.LogLevel,System.String,System.Object[])">
+            <summary>Writes a log message of the specified level using log4net.</summary>
+            <param name="level">The level of the message to write.</param>
+            <param name="message">The message to write.</param>
+            <param name="args">If specified, will be passed as parameters to format the specified message.</param>
+        </member>
+        <member name="T:NetDisco.ServerInfo">
+            <summary>Represents a discovered server.</summary>
+        </member>
+        <member name="M:NetDisco.ServerInfo.#ctor">
+            <summary>Creates a new instance of <see cref="T:NetDisco.ServerInfo"/>.</summary>
+        </member>
+        <member name="P:NetDisco.ServerInfo.Name">
+            <summary>The name of the server.</summary>
+        </member>
+        <member name="P:NetDisco.ServerInfo.Endpoint">
+            <summary>The IP endpoint of the server.</summary>
+        </member>
+        <member name="M:NetDisco.ServerInfo.Discover">
+            <summary>Enumerates the auto discoverable servers on the network using the default data on the default port.</summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that includes information about the server.</returns>
+        </member>
+        <member name="M:NetDisco.ServerInfo.Discover(System.Byte[])">
+            <summary>Enumerates the auto discoverable servers on the network by sending the specified data on the default.</summary>
+            <param name="data">The data the server will use to identify auto discover requests.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that includes information about the server.</returns>
+        </member>
+        <member name="M:NetDisco.ServerInfo.Discover(System.Int32)">
+            <summary>Enumerates the auto discoverable servers on the network using the default data on the specified port.</summary>
+            <param name="port">The port the server will use to listen for auto discover requests.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that includes information about the server.</returns>
+        </member>
+        <member name="M:NetDisco.ServerInfo.Discover(System.Int32,System.Byte[])">
+            <summary>Enumerates the auto discoverable servers on the network using the specified data on the specified port.</summary>
+            <param name="port">The port the server will use to listen for auto discover requests.</param>
+            <param name="data">The data the server will use to identify auto discover requests.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that includes information about the server.</returns>
+        </member>
+        <member name="M:NetDisco.ServerInfo.Create(System.Byte[])">
+            <summary>Reads the server information from the specified data.</summary>
+            <param name="data">The data with server information.</param>
+            <returns>A <see cref="T:NetDisco.ServerInfo"/> object or null.</returns>
+        </member>
+    </members>
+</doc>
