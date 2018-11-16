@@ -15,10 +15,22 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/tpalacino/NetDisco/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>.Net Standard Auto Discover AutoDiscover</PackageTags>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>1.0.1
+Added XML Documentation
+
+1.0.0
+Initial Release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/tpalacino/NetDisco</PackageProjectUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Code\Troy's AutoDiscovery\NetDisco\NetDisco.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Code\github\NetDisco\src\NetDisco\NetDisco\NetDisco.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
