@@ -150,7 +150,7 @@ namespace NetDisco
 
 					while (!mIsStopping)
 					{
-						if (Constants.DefaultAutoDiscoverData.SequenceEqual(data))
+						if (AutoDiscoverData.SequenceEqual(data))
 						{
 							var ip = Address.ToString();
 							byte[] responseData = (new { Name, Address = ip, Port }).ToByteArray();
