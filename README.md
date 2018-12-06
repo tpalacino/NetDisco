@@ -148,3 +148,7 @@ This is where we'll create the client for the auto-discoverable server using the
 3. Close the client and server applications
 4. Change the port and or IP address of the server
 5. Repeat steps 1 and 2 of this section
+
+## Links
+* [GitHub Project](https://github.com/tpalacino)
+* [Nuget Package](https://www.nuget.org/packages/NetDisco)
