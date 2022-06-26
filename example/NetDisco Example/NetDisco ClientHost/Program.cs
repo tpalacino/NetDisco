@@ -1,7 +1,6 @@
 ﻿using NetDisco.Example;
 using NetDisco_Example;
 using System;
-using System.Linq;
 
 namespace NetDisco_ClientHost
 {
