@@ -36,21 +36,21 @@ namespace NetDisco
 		/// <summary>Called when an error occurrs processing the request.</summary>
 		/// <param name="request">The request that caused the error.</param>
 		/// <param name="error">The error that occurred.</param>
-		/// <returns>A <see cref="TResponse"/> instance based on the request and error.</returns>
+		/// <returns>A <typeparamref name="TResponse"/> instance based on the request and error.</returns>
 		protected abstract TResponse HandleError(TRequest request, Exception error);
 		#endregion HandleError
 
 		#region ProcessRequest
 		/// <summary>Called to process a request.</summary>
 		/// <param name="request">The request to process.</param>
-		/// <returns>A <see cref="TResponse"/> instance.</returns>
+		/// <returns>A <typeparamref name="TResponse"/> instance.</returns>
 		protected abstract TResponse ProcessRequest(TRequest request);
 		#endregion ProcessRequest
 
 		#region ProcessRequest
 		/// <summary>Processes the request.</summary>
 		/// <param name="data">The raw data of the request.</param>
-		/// <returns>A <see cref="byte[]"/> with the raw data of the response.</returns>
+		/// <returns>A array of bytes with the raw data of the response.</returns>
 		protected override byte[] ProcessRequest(byte[] data)
 		{
 			byte[] retVal = null;

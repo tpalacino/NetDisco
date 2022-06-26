@@ -132,7 +132,7 @@ namespace NetDisco
 		/// <summary>Attempts to use the specified client to receive data from the specified endpoint.</summary>
 		/// <param name="client">The client to use.</param>
 		/// <param name="endpoint">The endpoint to receive data from.</param>
-		/// <returns>A <see cref="byte[]"/> with the received data or an empty array.</returns>
+		/// <returns>A array of bytes with the received data or an empty array.</returns>
 		internal static byte[] SafeReceive(this UdpClient client, ref IPEndPoint endpoint)
 		{
 			byte[] retVal = null;

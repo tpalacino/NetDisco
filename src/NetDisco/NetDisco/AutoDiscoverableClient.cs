@@ -46,7 +46,7 @@ namespace NetDisco
 		/// <summary>Called when an error occurrs processing a request.</summary>
 		/// <param name="request">The request that caused the error.</param>
 		/// <param name="error">The error that occurred.</param>
-		/// <returns>A <see cref="TResponse"/> instance based on the request and error.</returns>
+		/// <returns>A <typeparamref name="TResponse"/> instance based on the request and error.</returns>
 		protected abstract TResponse HandleError(TRequest request, Exception error);
 		#endregion HandleError
 
@@ -144,7 +144,7 @@ namespace NetDisco
 		#region Send
 		/// <summary>Sends the specified data to the discovered server.</summary>
 		/// <param name="data">The data to send to the server.</param>
-		/// <returns>A <see cref="byte[]"/> with the response from the server.</returns>
+		/// <returns>A array or bytess with the response from the server.</returns>
 		/// <exception cref="TimeoutException">Throw if no server is found within the current timeout.</exception>
 		protected byte[] Send(byte[] data)
 		{

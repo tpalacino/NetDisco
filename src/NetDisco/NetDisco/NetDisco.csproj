@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>NetDisco.snk</AssemblyOriginatorKeyFile>
     <PackageId>NetDisco</PackageId>
     <Authors>Troy Palacino</Authors>
@@ -13,29 +12,31 @@
     <Description>A .Net Standard library for creating auto-discoverable servers and clients.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/tpalacino/NetDisco/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>.Net Standard Auto Discover AutoDiscover</PackageTags>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>1.0.1
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>1.0.2
+Upgraded log4net and Newtonsoft.Json to the latest
+
+1.0.1
 Added XML Documentation
 
 1.0.0
 Initial Release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/tpalacino/NetDisco</PackageProjectUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Code\Troy's AutoDiscovery\NetDisco\NetDisco.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Code\github\NetDisco\src\NetDisco\NetDisco\NetDisco.xml</DocumentationFile>
+    <DocumentationFile>NetDisco.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE" Pack="true" PackagePath="">
+      <Link>LICENSE</Link>
+    </None>
   </ItemGroup>
 
 </Project>
