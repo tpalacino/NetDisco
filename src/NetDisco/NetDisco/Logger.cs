@@ -15,30 +15,36 @@
     along with NetDisco.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-using log4net;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace NetDisco
 {
-	/// <summary>Helper to simplify some log4net logic.</summary>
-	internal static class Logger
+	/// <summary>Helper to simplify writing log messages.</summary>
+	public static class Logger
 	{
+		#region Events
+
+		/// <summary>An event raised when a log message is written.</summary>
+		public static event LogMessageWrittenEventHandler OnLogMessageWritten;
+
+		#endregion Events
+
 		#region Methods
 
 		#region Write
-		/// <summary>Writes a log message of the specified level using log4net.</summary>
+		/// <summary>Writes a log message of the specified level.</summary>
 		/// <param name="level">The level of the message to write.</param>
 		/// <param name="message">The message to write.</param>
 		/// <param name="args">If specified, will be passed as parameters to format the specified message.</param>
-		internal static void Write(LogLevel level, string message, params object[] args)
+		public static void Write(LogLevel level, string message, params object[] args)
 		{
 			bool hasArgs = args != null && args.Length > 0, appliedFormat = false;
 			try
 			{
 				var callingType = new StackTrace().GetFrame(1).GetMethod().DeclaringType;
-				var log = LogManager.GetLogger(callingType);
 
 				if (hasArgs)
 				{
@@ -46,54 +52,19 @@ namespace NetDisco
 					appliedFormat = true;
 				}
 
-				switch (level)
+				if (OnLogMessageWritten != null)
 				{
-					case LogLevel.Debug:
-						{
-							if (log.IsDebugEnabled)
-							{
-								log.Debug(message);
-							}
-						}
-						break;
-					case LogLevel.Info:
-						{
-							if (log.IsInfoEnabled)
-							{
-								log.Info(message);
-							}
-						}
-						break;
-					case LogLevel.Error:
-						{
-							if (log.IsErrorEnabled)
-							{
-								log.Error(message);
-							}
-						}
-						break;
-					case LogLevel.Warn:
-						{
-							if (log.IsWarnEnabled)
-							{
-								log.Warn(message);
-							}
-						}
-						break;
-					case LogLevel.Fatal:
-						{
-							if (log.IsFatalEnabled)
-							{
-								log.Fatal(message);
-							}
-						}
-						break;
+					OnLogMessageWritten(level, message);
+				}
+				else
+				{
+					Console.WriteLine(message);
 				}
 			}
 			catch (Exception ex)
 			{
 				var argsList = new List<object>() { message ?? "null" };
-				if (hasArgs && !appliedFormat) { argsList.AddRange(args); }
+				if (hasArgs && !appliedFormat) { argsList.AddRange(args.Select(arg => arg ?? "null")); }
 				message = string.Format("An error occurred writing the {0} log. Info: \"{1}\"; Error: {2}", level, string.Join(",", argsList), ex);
 				Trace.WriteLine(message);
 				Console.WriteLine(message);
@@ -102,5 +73,10 @@ namespace NetDisco
 		#endregion Write
 
 		#endregion Methods
+
+		/// <summary>A delegate used to raise a log message event.</summary>
+		/// <param name="level">The level of the log message.</param>
+		/// <param name="message">The message being written.</param>
+		public delegate void LogMessageWrittenEventHandler(LogLevel level, string message);
 	}
 }

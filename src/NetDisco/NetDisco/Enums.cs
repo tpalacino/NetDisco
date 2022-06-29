@@ -19,7 +19,7 @@ namespace NetDisco
 {
 	#region LogLevel
 	/// <summary>The possible log levels.</summary>
-	internal enum LogLevel
+	public enum LogLevel
 	{
 		/// <summary>The Debug log level.</summary>
 		Debug = 0,

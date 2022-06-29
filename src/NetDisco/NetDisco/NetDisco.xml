@@ -17,7 +17,7 @@
             <param name="timeout">The amount of time to wait for server discovery before failing a request.</param>
         </member>
         <member name="M:NetDisco.AutoDiscoverableClient`2.HandleError(`0,System.Exception)">
-            <summary>Called when an error occurrs processing a request.</summary>
+            <summary>Called when an error occurrs processing the request.</summary>
             <param name="request">The request that caused the error.</param>
             <param name="error">The error that occurred.</param>
             <returns>A <typeparamref name="TResponse"/> instance based on the request and error.</returns>
@@ -242,14 +242,35 @@
             <param name="endpoint">The endpoint to receive data from.</param>
             <returns>A array of bytes with the received data or an empty array.</returns>
         </member>
+        <member name="T:NetDisco.IAutoDiscoverableServerRequest">
+            <summary>Defines the requirements for being an auto-discoverable server request.</summary>
+        </member>
+        <member name="T:NetDisco.IAutoDiscoverableServerResponse`1">
+            <summary>Defines the requirements for being an auto-discoverable server response.</summary>
+            <typeparam name="TRequest">The type of auto-discoverable server request.</typeparam>
+        </member>
+        <member name="P:NetDisco.IAutoDiscoverableServerResponse`1.Request">
+            <summary>The auto-discoverable server request.</summary>
+        </member>
+        <member name="P:NetDisco.IAutoDiscoverableServerResponse`1.Error">
+            <summary>The error processing the request.</summary>
+        </member>
         <member name="T:NetDisco.Logger">
-            <summary>Helper to simplify some log4net logic.</summary>
+            <summary>Helper to simplify writing log messages.</summary>
+        </member>
+        <member name="E:NetDisco.Logger.OnLogMessageWritten">
+            <summary>An event raised when a log message is written.</summary>
         </member>
         <member name="M:NetDisco.Logger.Write(NetDisco.LogLevel,System.String,System.Object[])">
-            <summary>Writes a log message of the specified level using log4net.</summary>
+            <summary>Writes a log message of the specified level.</summary>
             <param name="level">The level of the message to write.</param>
             <param name="message">The message to write.</param>
             <param name="args">If specified, will be passed as parameters to format the specified message.</param>
+        </member>
+        <member name="T:NetDisco.Logger.LogMessageWrittenEventHandler">
+            <summary>A delegate used to raise a log message event.</summary>
+            <param name="level">The level of the log message.</param>
+            <param name="message">The message being written.</param>
         </member>
         <member name="T:NetDisco.ServerInfo">
             <summary>Represents a discovered server.</summary>

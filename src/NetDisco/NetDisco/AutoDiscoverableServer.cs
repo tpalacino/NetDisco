@@ -15,7 +15,6 @@
     along with NetDisco.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -29,6 +28,8 @@ namespace NetDisco
 	/// <typeparam name="TRequest">The type of request object.</typeparam>
 	/// <typeparam name="TResponse">The type of response object.</typeparam>
 	public abstract class AutoDiscoverableServer<TRequest, TResponse> : AutoDiscoverableServer
+		where TRequest : IAutoDiscoverableServerRequest
+		where TResponse : IAutoDiscoverableServerResponse<TRequest>, new()
 	{
 		#region Methods
 
@@ -37,7 +38,13 @@ namespace NetDisco
 		/// <param name="request">The request that caused the error.</param>
 		/// <param name="error">The error that occurred.</param>
 		/// <returns>A <typeparamref name="TResponse"/> instance based on the request and error.</returns>
-		protected abstract TResponse HandleError(TRequest request, Exception error);
+		protected virtual TResponse HandleError(TRequest request, Exception error)
+		{
+			var retVal = new TResponse();
+			retVal.Request = request;
+			retVal.Error = error;
+			return retVal;
+		}
 		#endregion HandleError
 
 		#region ProcessRequest
@@ -72,7 +79,7 @@ namespace NetDisco
 					catch (Exception handleEx)
 					{
 						handleEx.Data["OriginalError"] = ex;
-						Logger.Write(LogLevel.Error, "An error occurred processing a request and HandleError method threw an exception handling it. Details: {0}", data.Length, JsonConvert.SerializeObject(handleEx));
+						Logger.Write(LogLevel.Error, "An error occurred processing a request and HandleError method threw an exception handling it. Details: {0}", handleEx);
 					}
 				}
 				retVal = response.ToByteArray();
@@ -163,7 +170,7 @@ namespace NetDisco
 			}
 			catch (Exception ex)
 			{
-				Logger.Write(LogLevel.Error, "An error occurred initializing the auto-discover component of the server. Error: {0}", JsonConvert.SerializeObject(ex));
+				Logger.Write(LogLevel.Error, "An error occurred initializing the auto-discover component of the server. Error: {0}", ex);
 			}
 		}
 		#endregion StartAutoComponent
@@ -203,7 +210,7 @@ namespace NetDisco
 			}
 			catch (Exception ex)
 			{
-				Logger.Write(LogLevel.Error, "An error occurred converting an object to a byte array. Error: {0}", JsonConvert.SerializeObject(ex));
+				Logger.Write(LogLevel.Error, "An error occurred initializing the server. Error: {0}", ex);
 			}
 		}
 		#endregion StartUserComponent

@@ -15,11 +15,11 @@
     along with NetDisco.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 
 namespace NetDisco
 {
@@ -53,11 +53,11 @@ namespace NetDisco
 			{
 				try
 				{
-					retVal = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(data));
+					retVal = JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(data));
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred converting a byte array to an object. Error: {0}", JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred converting a byte array to an object. Error: {0}", ex);
 				}
 			}
 
@@ -90,11 +90,11 @@ namespace NetDisco
 			{
 				try
 				{
-					retVal = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));
+					retVal = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj));
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred converting an object to a byte array. Error: {0}", JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred converting an object to a byte array. Error: {0}", ex);
 				}
 			}
 
@@ -120,7 +120,7 @@ namespace NetDisco
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred sending {0} bytes to the endpoint {1}:{2}. Error: {3}", data.Length, endpoint.Address, endpoint.Port, JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred sending {0} bytes to the endpoint {1}:{2}. Error: {3}", data.Length, endpoint.Address, endpoint.Port, ex);
 				}
 			}
 
@@ -145,7 +145,7 @@ namespace NetDisco
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred receiving data from the endpoint {0}:{1}. Error: {2}", endpoint.Address, endpoint.Port, JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred receiving data from the endpoint {0}:{1}. Error: {2}", endpoint.Address, endpoint.Port, ex);
 				}
 			}
 

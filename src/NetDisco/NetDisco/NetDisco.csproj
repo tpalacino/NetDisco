@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>NetDisco.snk</AssemblyOriginatorKeyFile>
     <PackageId>NetDisco</PackageId>
@@ -9,13 +9,16 @@
     <Product>Network Discovery</Product>
     <!-- HACK: Setting the title this way is required because the tooling doesn't properly support editing the title in the UI -->
     <Title>$(Product)</Title>
-    <Description>A .Net Standard library for creating auto-discoverable servers and clients.</Description>
+    <Description>A .Net library for creating auto-discoverable servers and clients.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageTags>.Net Standard Auto Discover AutoDiscover</PackageTags>
-    <Version>1.0.2</Version>
-    <PackageReleaseNotes>1.0.2
+    <PackageTags>.Net Auto Discover AutoDiscover</PackageTags>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>2.0.0
+Converted to .Net 6 and added default error handling.
+
+1.0.2
 Upgraded log4net and Newtonsoft.Json to the latest
 
 1.0.1
@@ -27,11 +30,6 @@ Initial Release</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
     <DocumentationFile>NetDisco.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.14" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
   
   <ItemGroup>
     <None Include="..\..\..\LICENSE" Pack="true" PackagePath="">

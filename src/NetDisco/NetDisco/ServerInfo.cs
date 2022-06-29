@@ -15,7 +15,6 @@
     along with NetDisco.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -111,7 +110,7 @@ namespace NetDisco
 				try { connection.Close(); }
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred closing the auto-discovery connection. Error: {0}", JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred closing the auto-discovery connection. Error: {0}", ex);
 				}
 			}
 		}
@@ -143,7 +142,7 @@ namespace NetDisco
 				}
 				catch (Exception ex)
 				{
-					Logger.Write(LogLevel.Error, "An error occurred reading server info from the data. Error: {0}", JsonConvert.SerializeObject(ex));
+					Logger.Write(LogLevel.Error, "An error occurred reading server info from the data. Error: {0}", ex);
 				}
 			}
 

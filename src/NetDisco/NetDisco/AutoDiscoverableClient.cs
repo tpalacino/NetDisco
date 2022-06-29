@@ -15,7 +15,6 @@
     along with NetDisco.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Net;
@@ -28,6 +27,8 @@ namespace NetDisco
 	/// <typeparam name="TRequest">The type of request object.</typeparam>
 	/// <typeparam name="TResponse">The type of response object.</typeparam>
 	public abstract class AutoDiscoverableClient<TRequest, TResponse> : AutoDiscoverableClient
+		where TRequest : IAutoDiscoverableServerRequest
+		where TResponse : IAutoDiscoverableServerResponse<TRequest>, new()
 	{
 		#region Constructors
 
@@ -43,11 +44,17 @@ namespace NetDisco
 		#region Methods
 
 		#region HandleError
-		/// <summary>Called when an error occurrs processing a request.</summary>
+		/// <summary>Called when an error occurrs processing the request.</summary>
 		/// <param name="request">The request that caused the error.</param>
 		/// <param name="error">The error that occurred.</param>
 		/// <returns>A <typeparamref name="TResponse"/> instance based on the request and error.</returns>
-		protected abstract TResponse HandleError(TRequest request, Exception error);
+		protected virtual TResponse HandleError(TRequest request, Exception error)
+		{
+			var retVal = new TResponse();
+			retVal.Request = request;
+			retVal.Error = error;
+			return retVal;
+		}
 		#endregion HandleError
 
 		#region Send
@@ -73,7 +80,7 @@ namespace NetDisco
 					catch (Exception handleEx)
 					{
 						handleEx.Data["OriginalError"] = ex;
-						Logger.Write(LogLevel.Error, "An error occurred processing a request and HandleError method threw an exception handling it. Details: {0}", JsonConvert.SerializeObject(handleEx));
+						Logger.Write(LogLevel.Error, "An error occurred processing a request and HandleError method threw an exception handling it. Details: {0}", handleEx);
 					}
 				}
 			}
@@ -165,7 +172,7 @@ namespace NetDisco
 					}
 					catch (Exception ex)
 					{
-						Logger.Write(LogLevel.Error, "An error occurred sending {0} bytes of data to the server. Error: {1}", data.Length, JsonConvert.SerializeObject(ex));
+						Logger.Write(LogLevel.Error, "An error occurred sending {0} bytes of data to the server. Error: {1}", data.Length, ex);
 					}
 				}
 			}
