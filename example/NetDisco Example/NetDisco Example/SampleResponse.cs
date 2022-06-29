@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NetDisco;
+using System;
 
-namespace NetDisco_Example
+namespace NetDisco.Example
 {
-	public class SampleResponse
+	public class SampleResponse : IAutoDiscoverableServerResponse<SampleRequest>
 	{
 		public string Result { get; set; }
 

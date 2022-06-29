@@ -1,10 +1,9 @@
 ﻿using NetDisco;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Net;
 
-namespace NetDisco_Example
+namespace NetDisco.Example
 {
 	public class MyServer : AutoDiscoverableServer<SampleRequest, SampleResponse>
 	{
@@ -27,30 +26,13 @@ namespace NetDisco_Example
 			_Port = port;
 		}
 
-		protected override SampleResponse HandleError(SampleRequest request, Exception error)
-		{
-			return new SampleResponse() { Request = request, Error = error };
-		}
-
-		public Action<SampleRequest> OnProcessRequest { get; set; }
-
 		protected override SampleResponse ProcessRequest(SampleRequest request)
 		{
-			if (OnProcessRequest != null)
-			{
-				try
-				{
-					OnProcessRequest(request);
-				}
-				catch (Exception ex)
-				{
-					Trace.WriteLine(string.Format("An error occurred calling OnProcessRequest. Details: {0}", JsonConvert.SerializeObject(ex)));
-				}
-			}
-
+			var now = string.Format("{0:hh:mm tt} on {0:MM/dd/yyyy}", DateTime.Now);
+			Console.WriteLine("You said '{0}' at {1}", request.Message ?? "null", now);
 			return new SampleResponse()
 			{
-				Result = string.Format("Received at {0:hh:mm tt} on {0:dd/MM/yyyy}: {1}", DateTime.Now, request.Message ?? "null")
+				Result = string.Format("Message Received at {0}", now)
 			};
 		}
 	}

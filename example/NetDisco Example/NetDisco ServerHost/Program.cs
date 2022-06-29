@@ -1,5 +1,5 @@
-﻿using NetDisco.Example;
-using NetDisco_Example;
+﻿using NetDisco;
+using NetDisco.Example;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -10,13 +10,7 @@ namespace NetDisco_ServerHost
 	{
 		static void Main(string[] args)
 		{
-			var server = new MyServer(Constants.ServerName, GetIpAddress(), new Random(DateTime.Now.Millisecond).Next(24000, 25000))
-			{
-				OnProcessRequest = (request) =>
-				{
-					Console.WriteLine("RECEIVED: {0}", request.Message);
-				}
-			};
+			var server = new MyServer(Constants.ServerName, GetIpAddress(), new Random(DateTime.Now.Millisecond).Next(24000, 25000));
 			server.Start();
 			Console.WriteLine("Server started: {0}", server);
 			Console.WriteLine("Press enter to terminate.");

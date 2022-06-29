@@ -1,5 +1,5 @@
-﻿using NetDisco.Example;
-using NetDisco_Example;
+﻿using NetDisco;
+using NetDisco.Example;
 using System;
 
 namespace NetDisco_ClientHost

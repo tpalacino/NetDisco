@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NetDisco;
+using System;
 
-namespace NetDisco_Example
+namespace NetDisco.Example
 {
-	public class SampleRequest
+	public class SampleRequest: IAutoDiscoverableServerRequest
 	{
 		public string Message { get; set; }
 	}

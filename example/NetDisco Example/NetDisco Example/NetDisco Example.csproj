@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>NetDisco.Example</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetDisco" Version="1.0.2" />
+    <PackageReference Include="NetDisco" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
